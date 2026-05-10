@@ -79,14 +79,6 @@ export default function Navbar({ scrolled }) {
               </a>
             )
           })}
-          <a
-            href="/Mounika_Veeramachaneni_Resume.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-sm px-4 py-2 border border-teal-400/50 text-teal-400 rounded hover:bg-teal-400/10 transition-colors duration-200"
-          >
-            Resume ↗
-          </a>
         </div>
 
         {/* Mobile toggle */}
@@ -118,14 +110,6 @@ export default function Navbar({ scrolled }) {
             {link.label}
           </a>
         ))}
-        <a
-          href="/Mounika_Veeramachaneni_Resume.pdf"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="block text-teal-400 border border-teal-400/40 rounded px-4 py-2 text-center text-sm mt-3"
-        >
-          Download Resume
-        </a>
       </div>
     </header>
   )

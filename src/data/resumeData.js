@@ -17,11 +17,9 @@ export const personal = {
   summary:
     '3+ years delivering end-to-end analytics for Fortune 500 clients. I bridge raw operational data and business decisions — from SQL to ML to boardroom-ready dashboards.',
   location: 'Irving, TX · Hybrid-Ready',
-  email: 'vmounika0912@gmail.com',
-  phone: '(940) 268-5854',
-  linkedin: 'https://linkedin.com/in/mounika-veeramachaneni', // update with real URL
+  email: 'mounikav991@gmail.com',
+linkedin: 'https://linkedin.com/in/mounika-veeramachaneni', // update with real URL
   github: '', // add if applicable
-  resumePdf: '/Mounika_Veeramachaneni_Resume.pdf', // place PDF in /public
 }
 
 // ─────────────────────────────────────────────

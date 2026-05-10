@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { MapPin, Mail, Download, ArrowDown } from 'lucide-react'
+import { MapPin, Mail, ArrowDown } from 'lucide-react'
 import { personal } from '../data/resumeData'
 
 export default function Hero() {
@@ -88,15 +88,6 @@ export default function Hero() {
             className="px-6 py-3 bg-teal-400 text-slate-900 font-semibold rounded hover:bg-teal-300 transition-colors duration-200 glow-teal"
           >
             View Projects
-          </a>
-          <a
-            href={personal.resumePdf}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-6 py-3 border border-slate-600 text-slate-300 rounded hover:border-teal-400/50 hover:text-teal-400 transition-colors duration-200 flex items-center gap-2"
-          >
-            <Download size={16} aria-hidden="true" />
-            Download Resume
           </a>
         </div>
 
