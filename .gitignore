@@ -17,6 +17,7 @@ dist-ssr/
 # Editor
 .DS_Store
 .vscode/
+.claude/
 !.vscode/extensions.json
 *.suo
 *.ntvs*
