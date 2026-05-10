@@ -16,21 +16,18 @@ Personal portfolio site for a Data Analyst / BI Engineer. Skills-first positioni
 src/
   data/resumeData.js     ← SINGLE SOURCE OF TRUTH — all content lives here
   components/
-    Navbar.jsx           ← Agent 7
-    Hero.jsx             ← Agent 2
-    Skills.jsx           ← Agent 3
-    Experience.jsx       ← Agent 4
-    Projects.jsx         ← Agent 5
-    Certifications.jsx   ← Agent 6
-    Contact.jsx          ← Agent 6
-    Footer.jsx           ← Agent 7
-    ScrollToTop.jsx      ← Agent 7
+    Navbar.jsx
+    Hero.jsx
+    Skills.jsx
+    Experience.jsx
+    Projects.jsx
+    Certifications.jsx
+    Contact.jsx
+    Footer.jsx
+    ScrollToTop.jsx
   App.jsx
   index.css
   main.jsx
-agents/                  ← Claude Code agent prompt files
-.claude/
-  settings.json          ← Claude Code settings
 ```
 
 ## Design Tokens (from tailwind.config.js + index.css)
@@ -83,14 +80,3 @@ npm run dev       # dev server at localhost:5173
 npm run build     # production build
 npm run preview   # preview production build
 ```
-
-## Agent Execution Order
-Run agents in this sequence to avoid dependency issues:
-1. Agent 1 (scaffold) — already done, project exists
-2. Agent 2 (Hero)
-3. Agent 3 (Skills)
-4. Agent 4 (Experience)
-5. Agent 5 (Projects)
-6. Agent 6 (Certifications + Contact)
-7. Agent 7 (Navbar + Layout + Polish)
-8. Agent 8 (QA + Performance)

@@ -1,25 +1,6 @@
-import React from 'react'
-import { BarChart2, Cloud, GitBranch, PieChart, Award } from 'lucide-react'
+import React, { useEffect, useRef } from 'react'
+import { BarChart2, Cloud, GitBranch, PieChart, Check } from 'lucide-react'
 import { certifications, education } from '../data/resumeData'
-
-// ─────────────────────────────────────────────
-// AGENT 6 TASK: Certifications Section
-// ─────────────────────────────────────────────
-// Requirements:
-// - Section ID: "certifications"
-// - 2-column heading: "Certifications" left, "Education" right (stacked on mobile)
-// - Cert cards: 2×2 grid (or 4 in a row on large screens)
-//   - Icon (colored teal/amber per cert.color)
-//   - Certification name
-//   - Issuer
-//   - Code badge (e.g. "PL-300")
-//   - Subtle checkmark/verified indicator
-// - Education: two clean entries — degree + institution + location
-//   NO graduation year anywhere
-// - Hover on cert cards: faint glow matching accent color
-//
-// Icon map: BarChart2, Cloud, GitBranch, PieChart
-// ─────────────────────────────────────────────
 
 const iconMap = { BarChart2, Cloud, GitBranch, PieChart }
 
@@ -30,12 +11,14 @@ function CertCard({ cert }) {
   return (
     <div
       className={`bg-slate-900 border border-slate-800 rounded-xl p-5 hover:border-slate-700 transition-all duration-200 ${
-        isTeal ? 'hover:shadow-teal-400/5 hover:shadow-lg' : 'hover:shadow-amber-400/5 hover:shadow-lg'
+        isTeal
+          ? 'hover:shadow-[0_0_24px_rgba(45,212,191,0.08)]'
+          : 'hover:shadow-[0_0_24px_rgba(251,191,36,0.08)]'
       }`}
     >
       <div className="flex items-start gap-4">
         <div className={`p-2.5 rounded-lg flex-shrink-0 ${isTeal ? 'bg-teal-400/10' : 'bg-amber-400/10'}`}>
-          {Icon && <Icon size={20} className={isTeal ? 'text-teal-400' : 'text-amber-400'} />}
+          {Icon && <Icon size={20} className={isTeal ? 'text-teal-400' : 'text-amber-400'} aria-hidden="true" />}
         </div>
         <div className="flex-1 min-w-0">
           <p className="text-sm font-semibold text-slate-200 leading-snug mb-1">{cert.name}</p>
@@ -51,26 +34,52 @@ function CertCard({ cert }) {
           {cert.code}
         </span>
       </div>
-      {/* Verified badge */}
       <div className="mt-3 pt-3 border-t border-slate-800 flex items-center gap-1.5">
-        <Award size={12} className="text-slate-600" />
-        <span className="text-xs text-slate-600">Certified</span>
+        <div className="w-4 h-4 rounded-full bg-teal-400/15 flex items-center justify-center">
+          <Check size={10} className="text-teal-400" aria-hidden="true" />
+        </div>
+        <span className="text-xs text-slate-600">Verified credential</span>
       </div>
     </div>
   )
 }
 
 export default function Certifications() {
+  const certRef = useRef(null)
+  const eduRef = useRef(null)
+
+  useEffect(() => {
+    const refs = [certRef, eduRef]
+    const observers = refs.map((ref) => {
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('opacity-100', 'translate-y-0')
+            entry.target.classList.remove('opacity-0', 'translate-y-6')
+          }
+        },
+        { threshold: 0.15 }
+      )
+      if (ref.current) observer.observe(ref.current)
+      return observer
+    })
+    return () => observers.forEach((o) => o.disconnect())
+  }, [])
+
   return (
     <section id="certifications" className="py-24 px-6 max-w-6xl mx-auto">
       <div className="grid md:grid-cols-2 gap-16">
         {/* Certifications */}
-        <div>
+        <div
+          ref={certRef}
+          className="opacity-0 translate-y-6 transition-all duration-500 ease-out"
+        >
           <div className="mb-10">
             <p className="font-mono text-teal-400 text-xs uppercase tracking-widest mb-2">
               Validated expertise
             </p>
             <h2 className="text-3xl font-bold text-slate-100">Certifications</h2>
+            <div className="mt-3 w-16 h-0.5 bg-gradient-to-r from-teal-400 to-amber-400 rounded" />
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {certifications.map((cert) => (
@@ -80,20 +89,25 @@ export default function Certifications() {
         </div>
 
         {/* Education */}
-        <div>
+        <div
+          ref={eduRef}
+          className="opacity-0 translate-y-6 transition-all duration-500 ease-out"
+          style={{ transitionDelay: '100ms' }}
+        >
           <div className="mb-10">
             <p className="font-mono text-amber-400 text-xs uppercase tracking-widest mb-2">
               Academic background
             </p>
             <h2 className="text-3xl font-bold text-slate-100">Education</h2>
+            <div className="mt-3 w-16 h-0.5 bg-gradient-to-r from-amber-400 to-teal-400 rounded" />
           </div>
           <div className="space-y-6">
+            {/* NOTE: graduation year intentionally omitted */}
             {education.map((edu, i) => (
               <div
                 key={i}
                 className="border-l-2 border-slate-800 pl-5 hover:border-teal-400/40 transition-colors duration-200"
               >
-                {/* TODO (Agent 6): Ensure NO graduation year appears */}
                 <p className="text-slate-200 font-medium leading-snug mb-1">{edu.degree}</p>
                 <p className="text-sm text-slate-400">{edu.institution}</p>
                 <p className="text-xs text-slate-600 mt-1">{edu.location}</p>
